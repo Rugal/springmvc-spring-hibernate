@@ -20,6 +20,7 @@
     <scm>
         <connection>scm:git:git@github.com:Rugal/springmvc-spring-hibernate.git</connection>
         <url>git@github.com:Rugal/springmvc-spring-hibernate.git</url>
+        <developerConnection>scm:git:git@github.com:Rugal/springmvc-spring-hibernate.git</developerConnection>
     </scm>
 
     <licenses>
