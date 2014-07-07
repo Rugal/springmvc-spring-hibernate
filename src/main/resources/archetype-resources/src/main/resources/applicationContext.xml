@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop      http://www.springframework.org/schema/aop/spring-aop.xsd
+">
+    <!-- properties files location -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!--<context:property-placeholder location="classpath:jdbc.properties"/>-->
+
+    <!-- annotation configuration scanning -->
+    <!--<context:annotation-config/>-->
+    
+    <context:component-scan base-package="rugal">
+        <!--
+        <context:exclude-filter type="" expression=""/>
+        <context:include-filter type="" expression=""/>
+        -->
+    </context:component-scan>
+
+
+    <!-- Hikari data source configuration -->
+    <!--
+    <bean name="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="dataSourceClassName" value="org.postgresql.ds.PGSimpleDataSource" />
+        <property name="username" value="postgres" />
+        <property name="password" value="900811" />
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="serverName">localhost</prop>
+                <prop key="databaseName">postgres</prop>
+            </props>
+        </property>
+    </bean>
+    -->
+    <!-- Hikari data source creation -->
+    <!--
+   <bean name="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="shutdown">
+       <constructor-arg ref="hikariConfig"/>
+   </bean>
+    -->
+
+    <!-- Do JSON data convertion -->  
+    <!--<bean id="messageConverters" class="rugal.common.springmvc.converter.json.GsonHttpMessageConverter">-->
+    <bean id="messageConverters" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+                <value>text/javascript;charset=utf-8</value>
+            </list>
+        </property>
+    </bean>
+    
+    
+    <!-- RestTemplate for sending HTTP request -->
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate" >
+        <!--<constructor-arg ref="httpClientFactory"/>-->
+        <property name="messageConverters" ref="messageConverters" />
+    </bean>
+
+  
+    
+    <!-- data source configuration with BoneCP -->
+    <bean name="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="idleConnectionTestPeriodInMinutes" value="60"/>
+        <property name="idleMaxAgeInMinutes" value="240"/>
+        <property name="maxConnectionsPerPartition" value="10"/>
+        <property name="minConnectionsPerPartition" value="1"/>
+        <property name="partitionCount" value="1"/>
+        <property name="acquireIncrement" value="5"/>
+        <property name="statementsCacheSize" value="100"/>
+    </bean>
+    
+
+    <!-- Hibernate session factory -->
+    <bean name="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan">
+            <list>
+                <value>rugal.sample.core.entity</value>
+                <!--<value>rugal.core.entity</value>-->
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>-->
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+                <!--<prop key="current_session_context_class">thread</prop>-->
+                <!--<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>-->
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>-->
+                <prop key="hibernate.connection.autocommit">false</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">validate</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <!-- transaction manager -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <tx:annotation-driven transaction-manager="transactionManager"  />
+    <!-- transaction manager advisor -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="find*" propagation="REQUIRED" read-only="true" />
+            <tx:method name="get*" propagation="REQUIRED" read-only="true" />
+            <tx:method name="count*" propagation="REQUIRED" read-only="true" />
+            <tx:method name="*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- AOP transaction inserter -->
+    <aop:config>
+        <aop:pointcut id="txPointcut" expression="execution(* rugal.sample.core.service.impl..*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
+    </aop:config>
+</beans>

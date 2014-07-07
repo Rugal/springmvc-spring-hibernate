@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop    http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/mvc    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        ">
+    <mvc:annotation-driven  content-negotiation-manager="contentNegotiationManager">
+        <mvc:argument-resolvers>
+            <!--<bean class="rugal.common.springmvc.method.annotation.RequestJsonParamMethodArgumentResolver"/>-->
+            <bean class="rugal.common.springmvc.method.annotation.FormModelMethodArgumentResolver"/>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+
+
+    <mvc:default-servlet-handler default-servlet-name="default"/>
+
+    <!-- enable spring mvc annotation -->
+    <context:annotation-config/>
+
+    <!-- scanning annotation based package -->
+    <context:component-scan base-package="rugal.sample.controller"/>
+
+    <!-- Mapping annotation on POJO -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" >
+        <property name="useDefaultSuffixPattern" value="false"/>
+    </bean>
+
+    <!-- define the REST content negotiating view resolver -->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="false"/>
+        <property name="defaultContentType" value="application/json"/>
+        <property name="mediaTypes">
+            <map>
+                <entry key="json" value="application/json"/>
+                <entry key="html" value="text/html"/>
+                <entry key="javascript" value="text/javascript"/>
+                <entry key="xls" value="application/vnd.ms-excel"/>
+                <entry key="csv" value="text/csv"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <!-- view resolver -->
+    <!--    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/jsp/" p:suffix=".jsp">
+    </bean>-->
+
+    <!-- exception handle -->
+    <!--    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">    
+        <property name="defaultErrorView" value="/error/500.json"/>
+        <property name="exceptionMappings">  
+            <props>
+                <prop key="500">/error/500.json</prop>
+            </props>  
+        </property>
+    </bean>-->
+
+    <!--interceptor configuration -->
+    <!--<mvc:interceptors>-->
+    <!--<bean class="rugal.center.interceptor.AntiDDOSInterceptor"/>-->
+    <!--        <mvc:interceptor>
+        <mvc:mapping path="/passport*"/>
+        <bean class="rugal.center.interceptor.PassportCheckInterceptor"/>
+    </mvc:interceptor>-->
+    <!--        <mvc:interceptor>
+        <mvc:mapping path="/entrance"/>
+        <bean class="rugal.center.interceptor.PassportCheckInterceptor"/>
+    </mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
+</beans>
