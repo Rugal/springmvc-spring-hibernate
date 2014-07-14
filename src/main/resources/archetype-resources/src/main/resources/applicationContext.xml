@@ -36,7 +36,10 @@
     <bean name="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="dataSourceClassName" value="org.postgresql.ds.PGSimpleDataSource" />
         <property name="username" value="postgres" />
-        <property name="password" value="900811" />
+        <property name="password" value="123456" />
+       <property name="maximumPoolSize" value="3" />
+        <property name="jdbc4ConnectionTest" value="false" />
+        <property name="connectionTestQuery" value="SELECT 1;" />
         <property name="dataSourceProperties">
             <props>
                 <prop key="serverName">localhost</prop>
