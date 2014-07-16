@@ -17,6 +17,7 @@ package rugal.sample.core.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import rugal.common.hibernate.Updater;
 import rugal.common.page.Pagination;
 import rugal.sample.core.dao.StudentDao;
@@ -28,6 +29,7 @@ import rugal.sample.core.service.StudentService;
  * @author Rugal Bernstein
  */
 @Service
+@Transactional
 public class StudentServiceImpl implements StudentService
 {
 
@@ -43,12 +45,14 @@ public class StudentServiceImpl implements StudentService
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Student findById(Integer id)
     {
         return studentDao.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Pagination getPage(int pageNo, int pageSize)
     {
         return studentDao.getPage(pageNo, pageSize);

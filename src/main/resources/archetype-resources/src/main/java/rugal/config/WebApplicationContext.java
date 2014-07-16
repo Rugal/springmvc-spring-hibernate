@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 e563642.
+ * Copyright 2014 Rugal Bernstein.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,32 +29,42 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.handler.AbstractDetectingUrlHandlerMapping;
-import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
-import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.handler.AbstractHandlerMapping;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import rugal.common.springmvc.method.annotation.FormModelMethodArgumentResolver;
 import rugal.common.springmvc.method.annotation.RequestJsonParamMethodArgumentResolver;
 
+/**
+ *
+ * @author Rugal Bernstein
+ */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"rugal.sample.controller"})
-public class WebApplicationContext extends WebMvcConfigurerAdapter {
+@ComponentScan(basePackages =
+{
+    "rugal.sample.controller"
+})
+public class WebApplicationContext extends WebMvcConfigurerAdapter
+{
 
     @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer)
+    {
         configurer.enable();
     }
 
     @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers)
+    {
         argumentResolvers.add(new FormModelMethodArgumentResolver());
         argumentResolvers.add(new RequestJsonParamMethodArgumentResolver());
     }
 
     @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-        configurer.favorPathExtension(false).favorParameter(true);
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer)
+    {
+        configurer.favorPathExtension(false).favorParameter(false);
         configurer.defaultContentType(MediaType.APPLICATION_JSON);
         configurer.mediaType("json", MediaType.APPLICATION_JSON);
         configurer.mediaType("html", MediaType.TEXT_HTML);
@@ -64,7 +74,8 @@ public class WebApplicationContext extends WebMvcConfigurerAdapter {
     }
 
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters)
+    {
         MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
         List<MediaType> supportedMediaTypes = new ArrayList<>();
         supportedMediaTypes.add(MediaType.APPLICATION_JSON);
@@ -73,23 +84,25 @@ public class WebApplicationContext extends WebMvcConfigurerAdapter {
         converters.add(messageConverter);
     }
 
+//    @Bean
+//    public InternalResourceViewResolver viewResolver()
+//    {
+//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//        resolver.setPrefix("/WEB-INF/pages/");
+//        resolver.setSuffix(".jsp");
+//        return resolver;
+//    }
     @Bean
-    public InternalResourceViewResolver viewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/pages/");
-        resolver.setSuffix(".jsp");
-        return resolver;
+    public HandlerAdapter annotationMethodHandlerAdapter()
+    {
+        return new RequestMappingHandlerAdapter();
     }
 
     @Bean
-    public HandlerAdapter annotationMethodHandlerAdapter() {
-        return new AnnotationMethodHandlerAdapter();
-    }
-
-    @Bean
-    public AbstractDetectingUrlHandlerMapping defaultAnnotationHandlerMapping() {
-        DefaultAnnotationHandlerMapping mapping = new DefaultAnnotationHandlerMapping();
-        mapping.setUseDefaultSuffixPattern(false);
+    public AbstractHandlerMapping defaultAnnotationHandlerMapping()
+    {
+        RequestMappingHandlerMapping mapping = new RequestMappingHandlerMapping();
+        mapping.setUseSuffixPatternMatch(false);
         return mapping;
     }
 }

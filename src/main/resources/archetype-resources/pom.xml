@@ -6,7 +6,7 @@
     <version>${version}</version>
     <packaging>war</packaging>
     <name>springmvc-spring-hibernate skeleton</name>
-    <description>A pretty useful JavaEE application skeleton based on springmvc spring and hibernate</description>
+    <description>A pretty useful JavaEE application skeleton based on springmvc spring and hibernate with Java based configuration</description>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>

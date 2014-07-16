@@ -5,6 +5,9 @@ This is my first contribution to maven repository, to save it save a template fo
 
 A great exquisit archetype, please refer to real archetype in `src/main/resources/archetype-resources` for furture inquirement.  
 
-    <groupId>ml.rugal.archetype</groupId>
-    <artifactId>springmvc-spring-hibernate</artifactId>
-    <version>0.1</version>
+    mvn archetype:generate  -DarchetypeGroupId=ml.rugal.archetype       \
+                -DarchetypeArtifactId=springmvc-spring-hibernate  \
+                -DarchetypeVersion=0.2          \
+                -DgroupId=your.group.id         \
+                -DartifactId=your.artifact.id   \
+                -Dversion=your.version

@@ -46,13 +46,13 @@ public class StudentActionTest extends ControllerClientSideTestBase
     }
 
 //    @Test
-    public void testCancelOrder()
+    public void testDeregister()
     {
         System.out.println("cancelOrder");
         Integer id = null;
         StudentAction instance = new StudentAction();
         Message expResult = null;
-        Message result = instance.cancelOrder(id);
+        Message result = instance.deregister(id);
     }
 
 //    @Test

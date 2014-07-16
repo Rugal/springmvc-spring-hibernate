@@ -13,10 +13,7 @@ import org.springframework.web.context.WebApplicationContext;
  *
  * @author rugal
  */
-@ContextConfiguration(locations =
-{
-    "classpath:/springmvc-servlet.xml"
-})
+@ContextConfiguration(classes = rugal.config.WebApplicationContext.class)
 @WebAppConfiguration
 @Ignore
 public abstract class ControllerClientSideTestBase extends JUnitSpringTestBase
