@@ -36,8 +36,9 @@ import rugal.common.springmvc.method.annotation.FormModelMethodArgumentResolver;
 import rugal.common.springmvc.method.annotation.RequestJsonParamMethodArgumentResolver;
 
 /**
- *
+ * Java based Web context configuration class.
  * @author Rugal Bernstein
+ * @since 0.2
  */
 @Configuration
 @EnableWebMvc

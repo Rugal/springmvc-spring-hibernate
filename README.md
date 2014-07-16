@@ -11,3 +11,6 @@ A great exquisit archetype, please refer to real archetype in `src/main/resource
                 -DgroupId=your.group.id         \
                 -DartifactId=your.artifact.id   \
                 -Dversion=your.version
+
+
+Since version `0.2`, we start to use Java based configuration for application context and web context.

@@ -29,6 +29,11 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * Java based application context configuration class.
+ * @author Rugal Bernstein
+ * @since 0.2
+ */
 @Configuration
 @EnableTransactionManagement
 @PropertySource(
