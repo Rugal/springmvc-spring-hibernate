@@ -1,7 +1,7 @@
 springmvc-spring-hibernate
 ==========================
 
-(`update log`)[http://rugal.github.io/development/2014/07/06/my-archetype-in-maven/]  
+[`release note`](http://rugal.github.io/development/2014/07/06/my-archetype-in-maven/)  
 
 This is my first contribution to maven repository, to save it save a template for future contributions.  
 
