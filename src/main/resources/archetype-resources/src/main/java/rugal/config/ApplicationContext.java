@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Rugal Bernstein.
+ * Copyright 2014 e563642.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,6 @@ package rugal.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
@@ -28,9 +26,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -64,16 +59,6 @@ public class ApplicationContext {
     public DataSource dataSource() {
         HikariDataSource dataSource = new HikariDataSource(hikariConfig());
         return dataSource;
-    }
-
-    @Bean
-    public HttpMessageConverter messageConverters() {
-        MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
-        List<MediaType> supportedMediaTypes = new ArrayList<>();
-        supportedMediaTypes.add(MediaType.APPLICATION_JSON);
-        supportedMediaTypes.add(MediaType.valueOf("text/javascript"));
-        messageConverter.setSupportedMediaTypes(supportedMediaTypes);
-        return messageConverter;
     }
 
     @Bean
