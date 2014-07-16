@@ -15,11 +15,14 @@
  */
 package rugal.config;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
@@ -58,6 +61,16 @@ public class WebApplicationContext extends WebMvcConfigurerAdapter {
         configurer.mediaType("js", MediaType.valueOf("text/javascript"));
         configurer.mediaType("xls", MediaType.valueOf("application/vnd.ms-excel"));
         configurer.mediaType("csv", MediaType.valueOf("text/csv"));
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
+        List<MediaType> supportedMediaTypes = new ArrayList<>();
+        supportedMediaTypes.add(MediaType.APPLICATION_JSON);
+        supportedMediaTypes.add(MediaType.valueOf("text/javascript"));
+        messageConverter.setSupportedMediaTypes(supportedMediaTypes);
+        converters.add(messageConverter);
     }
 
     @Bean
