@@ -288,7 +288,7 @@
         <dependency>
             <groupId>ml.rugal</groupId>
             <artifactId>ssh-common</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1</version>
         </dependency>
     </dependencies>
     <build>
