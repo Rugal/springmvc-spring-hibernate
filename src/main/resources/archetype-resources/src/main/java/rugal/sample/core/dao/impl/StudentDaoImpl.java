@@ -1,9 +1,11 @@
 package rugal.sample.core.dao.impl;
 
+import ml.rugal.sshcommon.hibernate.HibernateBaseDao;
+import ml.rugal.sshcommon.page.Pagination;
 import org.hibernate.Criteria;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import rugal.common.hibernate.HibernateBaseDao;
-import rugal.common.page.Pagination;
+import rugal.sample.controller.ExceptionAction;
 import rugal.sample.core.dao.StudentDao;
 import rugal.sample.core.entity.Student;
 
@@ -14,6 +16,9 @@ import rugal.sample.core.entity.Student;
 @Repository
 public class StudentDaoImpl extends HibernateBaseDao<Student, Integer> implements StudentDao
 {
+
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(ExceptionAction.class
+        .getName());
 
     @Override
     public Pagination getPage(int pageNo, int pageSize)

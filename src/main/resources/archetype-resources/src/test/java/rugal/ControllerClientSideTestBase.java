@@ -13,7 +13,7 @@ import org.springframework.web.context.WebApplicationContext;
  *
  * @author rugal
  */
-@ContextConfiguration(classes = rugal.config.WebApplicationContext.class)
+@ContextConfiguration(classes = config.WebApplicationContext.class)
 @WebAppConfiguration
 @Ignore
 public abstract class ControllerClientSideTestBase extends JUnitSpringTestBase

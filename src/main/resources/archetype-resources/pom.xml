@@ -285,6 +285,11 @@
         </dependency>
         <!-- spring web mvc stop -->
         <!-- Auto Append -->
+        <dependency>
+            <groupId>ml.rugal</groupId>
+            <artifactId>ssh-common</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <pluginManagement>

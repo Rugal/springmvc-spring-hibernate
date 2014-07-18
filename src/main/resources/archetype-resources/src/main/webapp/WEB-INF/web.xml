@@ -13,7 +13,7 @@
     </context-param>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>rugal.config.ApplicationContext</param-value>
+        <param-value>config.ApplicationContext</param-value>
     </context-param>
 
     <session-config>
@@ -58,7 +58,7 @@
         </init-param>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>rugal.config.WebApplicationContext</param-value>
+            <param-value>config.WebApplicationContext</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
         <async-supported>true</async-supported>

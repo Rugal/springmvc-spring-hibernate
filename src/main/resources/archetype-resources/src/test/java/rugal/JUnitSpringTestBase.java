@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Rugal Bernstein
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = rugal.config.ApplicationContext.class)
+@ContextConfiguration(classes = config.ApplicationContext.class)
 @Ignore
 public abstract class JUnitSpringTestBase
 {
