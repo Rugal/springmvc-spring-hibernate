@@ -58,7 +58,8 @@ public class ExceptionAction
      * @return
      * @throws org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException
      */
-    @RequestMapping()
+    @RequestMapping("/**")
+    @ResponseBody
     public Object PathNotFoundHandler(HttpServletRequest request) throws NoSuchRequestHandlingMethodException
     {
         LOG
