@@ -60,7 +60,7 @@ public class ExceptionAction
      */
     @RequestMapping("/**")
     @ResponseBody
-    public Object PathNotFoundHandler(HttpServletRequest request) throws NoSuchRequestHandlingMethodException
+    public Message PathNotFoundHandler(HttpServletRequest request) throws NoSuchRequestHandlingMethodException
     {
         LOG
             .warn(MessageFormat
