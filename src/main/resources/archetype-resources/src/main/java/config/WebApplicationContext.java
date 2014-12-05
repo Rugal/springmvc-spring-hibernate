@@ -79,7 +79,7 @@ public class WebApplicationContext extends WebMvcConfigurerAdapter
 //        resolver.setSuffix(".jsp");
 //        return resolver;
 //    }
-    @Bean
+    // @Bean
     public HandlerAdapter annotationMethodHandlerAdapter()
     {
         return new RequestMappingHandlerAdapter();
