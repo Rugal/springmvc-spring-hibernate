@@ -15,11 +15,9 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  *
  * @author Rugal Bernstein
  */
-//@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations =
-{
-    "classpath:/springmvc-servlet.xml"
-})
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(classes = config.WebApplicationContext.class)
 @Ignore
 public abstract class ControllerServerSideTestBase extends JUnitSpringTestBase
 {
