@@ -6,16 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 /**
  * This is a base test class for JUNIT test in controller testing<BR/>
- * It is really a very simple but useful test class, which skipped using web server, hence saved a lot of time in
+ * It is really a very simple but useful test class, which skipped using web server, hence saved a
+ * lot of time in
  * deployment!
  *
  * @author Rugal Bernstein
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = config.WebApplicationContext.class)
 @Ignore

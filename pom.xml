@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ml.rugal.archetype</groupId>
     <artifactId>springmvc-spring-hibernate</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
     <packaging>jar</packaging>
 
     <name>Archetype - springmvc.spring.hibernate</name>
     <description>A pretty useful JavaEE application archetype based on springmvc spring and hibernate</description>
-    <url>http://rugal.ml</url>
+    <url>http://rugal.ga/development/2014/07/06/my-archetype-in-maven/</url>
 
     <developers>
         <developer>

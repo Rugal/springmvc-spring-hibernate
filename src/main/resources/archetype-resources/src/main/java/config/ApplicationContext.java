@@ -24,11 +24,26 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @PropertySource(
     {
-        "classpath:jdbc.properties"
+        "classpath:jdbc.properties",
+        "classpath:hibernate.properties"
     })
 @ComponentScan(value = "rugal")
 public class ApplicationContext
 {
+
+    public static final String hibernate_connection_autocommit = "hibernate.connection.autocommit";
+
+    public static final String hibernate_format_sql = "hibernate.format_sql";
+
+    public static final String hibernate_hbm2ddl_auto = "hibernate.hbm2ddl.auto";
+
+    public static final String hibernate_show_sql = "hibernate.show_sql";
+
+    public static final String hibernate_current_session_context_class = "hibernate.current_session_context_class";
+
+    public static final String hibernate_dialect = "hibernate.dialect";
+
+    public static final String package_to_scan = "rugal.sample.core.entity";
 
     @Autowired
     private Environment env;
@@ -80,19 +95,20 @@ public class ApplicationContext
 
 //<editor-fold defaultstate="collapsed" desc="Hibernate Session factory configuration">
     @Bean
-    public LocalSessionFactoryBean sessionFactory()
+    @Autowired
+    public LocalSessionFactoryBean sessionFactory(DataSource datasouce)
     {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("rugal.sample.core.entity");
+        sessionFactory.setDataSource(datasouce);
+        sessionFactory.setPackagesToScan(package_to_scan);
         Properties hibernateProperties = new Properties();
-        hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        hibernateProperties.put(hibernate_dialect, env.getProperty(hibernate_dialect));
         hibernateProperties
-            .put("hibernate.current_session_context_class", "org.springframework.orm.hibernate4.SpringSessionContext");
-        hibernateProperties.put("hibernate.connection.autocommit", "false");
-        hibernateProperties.put("hibernate.format_sql", "true");
-        hibernateProperties.put("hibernate.hbm2ddl.auto", "validate");
-        hibernateProperties.put("hibernate.show_sql", "true");
+            .put(hibernate_current_session_context_class, env.getProperty(hibernate_current_session_context_class));
+        hibernateProperties.put(hibernate_connection_autocommit, env.getProperty(hibernate_connection_autocommit));
+        hibernateProperties.put(hibernate_format_sql, env.getProperty(hibernate_format_sql));
+        hibernateProperties.put(hibernate_hbm2ddl_auto, env.getProperty(hibernate_hbm2ddl_auto));
+        hibernateProperties.put(hibernate_show_sql, env.getProperty(hibernate_show_sql));
         sessionFactory.setHibernateProperties(hibernateProperties);
         return sessionFactory;
     }
