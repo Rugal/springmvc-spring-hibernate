@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
@@ -48,6 +49,16 @@ public class WebApplicationContext extends WebMvcConfigurerAdapter
         argumentResolvers.add(new RequestJsonParamMethodArgumentResolver());
     }
 
+    @Bean
+    public RestTemplate restTemplate()
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        List<HttpMessageConverter<?>> converters = new ArrayList<>();
+        converters.add(mappingJackson2HttpMessageConverter());
+        restTemplate.setMessageConverters(converters);
+        return restTemplate;
+    }
+
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer)
     {
@@ -63,23 +74,21 @@ public class WebApplicationContext extends WebMvcConfigurerAdapter
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters)
     {
+        converters.add(mappingJackson2HttpMessageConverter());
+    }
+
+    @Bean
+    public HttpMessageConverter mappingJackson2HttpMessageConverter()
+    {
         MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
         List<MediaType> supportedMediaTypes = new ArrayList<>();
         supportedMediaTypes.add(MediaType.APPLICATION_JSON);
-        supportedMediaTypes.add(MediaType.valueOf("text/javascript"));
+        supportedMediaTypes.add(MediaType.TEXT_PLAIN);
         messageConverter.setSupportedMediaTypes(supportedMediaTypes);
-        converters.add(messageConverter);
+        return messageConverter;
     }
 
 //    @Bean
-//    public InternalResourceViewResolver viewResolver()
-//    {
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("/WEB-INF/pages/");
-//        resolver.setSuffix(".jsp");
-//        return resolver;
-//    }
-    // @Bean
     public HandlerAdapter annotationMethodHandlerAdapter()
     {
         return new RequestMappingHandlerAdapter();
@@ -92,4 +101,13 @@ public class WebApplicationContext extends WebMvcConfigurerAdapter
         mapping.setUseSuffixPatternMatch(false);
         return mapping;
     }
+//    @Bean
+//    public InternalResourceViewResolver viewResolver()
+//    {
+//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//        resolver.setPrefix("/WEB-INF/pages/");
+//        resolver.setSuffix(".jsp");
+//        return resolver;
+//    }
+
 }
