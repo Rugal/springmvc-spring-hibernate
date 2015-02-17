@@ -1,6 +1,6 @@
 package config;
 
-import com.jolbox.bonecp.BoneCPDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
@@ -23,10 +23,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @PropertySource(
-    {
-        "classpath:jdbc.properties",
-        "classpath:hibernate.properties"
-    })
+        {
+            "classpath:jdbc.properties",
+            "classpath:hibernate.properties"
+        })
 @ComponentScan(value = "rugal")
 public class ApplicationContext
 {
@@ -48,47 +48,20 @@ public class ApplicationContext
     @Autowired
     private Environment env;
 
-//<editor-fold defaultstate="collapsed" desc="Hikari connection pool configure">
-//    @Bean
-//    public HikariConfig hikariConfig()
-//    {
-//        HikariConfig hikariConfig = new HikariConfig();
-//        hikariConfig.setDataSourceClassName("org.postgresql.ds.PGSimpleDataSource");
-//        hikariConfig.setUsername(env.getProperty("jdbc.username"));
-//        hikariConfig.setPassword(env.getProperty("jdbc.password"));
-//        hikariConfig.setMaximumPoolSize(3);
-//        hikariConfig.setJdbc4ConnectionTest(false);
-//        hikariConfig.setConnectionTestQuery("SELECT 1;");
-//        Properties dataSourceProperties = new Properties();
-//        dataSourceProperties.put("serverName", "localhost");
-//        dataSourceProperties.put("databaseName", "postgres");
-//        hikariConfig.setDataSourceProperties(dataSourceProperties);
-//        return hikariConfig;
-//    }
-//
-//    @Bean(destroyMethod = "shutdown")
-//    public DataSource dataSource()
-//    {
-//        HikariDataSource dataSource = new HikariDataSource(hikariConfig());
-//        return dataSource;
-//    }
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="BoneCP configuration">
+//<editor-fold defaultstate="collapsed" desc="HikariCP Datasoure Configuration" >
     @Bean(destroyMethod = "close")
+    @Autowired
     public DataSource dataSource()
     {
-        BoneCPDataSource dataSource = new BoneCPDataSource();
-        dataSource.setDriverClass(env.getProperty("jdbc.driverClassName"));
-        dataSource.setJdbcUrl(env.getProperty("jdbc.url"));
+        HikariDataSource dataSource = new HikariDataSource();
         dataSource.setUsername(env.getProperty("jdbc.username"));
         dataSource.setPassword(env.getProperty("jdbc.password"));
-        dataSource.setIdleConnectionTestPeriodInMinutes(60);
-        dataSource.setIdleMaxAgeInMinutes(240);
-        dataSource.setMaxConnectionsPerPartition(10);
-        dataSource.setMinConnectionsPerPartition(1);
-        dataSource.setPartitionCount(1);
-        dataSource.setAcquireIncrement(5);
-        dataSource.setStatementsCacheSize(100);
+        dataSource.setJdbcUrl(env.getProperty("jdbc.url"));
+        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+        dataSource.setConnectionTestQuery("SELECT 1;");
+        dataSource.setMaximumPoolSize(3);
+        dataSource.setAutoCommit(false);
+        //------------------------------
         return dataSource;
     }
 //</editor-fold>
@@ -101,16 +74,23 @@ public class ApplicationContext
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(datasouce);
         sessionFactory.setPackagesToScan(package_to_scan);
+        sessionFactory.setHibernateProperties(hibernateProperties());
+        return sessionFactory;
+    }
+
+    private Properties hibernateProperties()
+    {
         Properties hibernateProperties = new Properties();
         hibernateProperties.put(hibernate_dialect, env.getProperty(hibernate_dialect));
         hibernateProperties
-            .put(hibernate_current_session_context_class, env.getProperty(hibernate_current_session_context_class));
+                .put(hibernate_current_session_context_class, env.getProperty(hibernate_current_session_context_class));
         hibernateProperties.put(hibernate_connection_autocommit, env.getProperty(hibernate_connection_autocommit));
         hibernateProperties.put(hibernate_format_sql, env.getProperty(hibernate_format_sql));
         hibernateProperties.put(hibernate_hbm2ddl_auto, env.getProperty(hibernate_hbm2ddl_auto));
         hibernateProperties.put(hibernate_show_sql, env.getProperty(hibernate_show_sql));
-        sessionFactory.setHibernateProperties(hibernateProperties);
-        return sessionFactory;
+//        hibernateProperties.put(hibernate_connection_provider_class, env.getProperty(hibernate_connection_provider_class));
+        return hibernateProperties;
+
     }
 //</editor-fold>
 

@@ -3,13 +3,17 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ml.rugal.archetype</groupId>
     <artifactId>springmvc-spring-hibernate</artifactId>
-    <version>0.4</version>
+    <version>0.5</version>
     <packaging>jar</packaging>
 
     <name>Archetype - springmvc.spring.hibernate</name>
     <description>A pretty useful JavaEE application archetype based on springmvc spring and hibernate</description>
     <url>http://rugal.ga/development/2014/07/06/my-archetype-in-maven/</url>
-
+    <properties>
+        <!-- Using utf-8 encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
     <developers>
         <developer>
             <name>Rugal Bernstein</name>
@@ -41,7 +45,7 @@
         </repository>
     </distributionManagement>
 
-    <build>
+    <!--    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -80,5 +84,5 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 </project>

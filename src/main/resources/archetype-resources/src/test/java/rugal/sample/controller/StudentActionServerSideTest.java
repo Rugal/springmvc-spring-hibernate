@@ -54,21 +54,22 @@ public class StudentActionServerSideTest extends ControllerServerSideTestBase
         try
         {
             mv = handlerAdapter
-                .handle(request, response, new HandlerMethod(studentAction, "registerStudent", parameterTypes));
-        } catch (Exception e)
+                    .handle(request, response, new HandlerMethod(studentAction, "registerStudent", parameterTypes));
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
     }
 
     @Test
-    @Ignore
+//    @Ignore
     public void getAddress()
     {
         request.setMethod(HttpMethod.GET.name());
         request.setRequestURI("/student/{id}");
         HashMap<String, String> pathVariablesMap = new HashMap<>(1);
-        pathVariablesMap.put("id", "1");
+        pathVariablesMap.put("id", "3");
         request.setAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE, pathVariablesMap);
         Class<?>[] parameterTypes = new Class<?>[]
         {
@@ -78,8 +79,9 @@ public class StudentActionServerSideTest extends ControllerServerSideTestBase
         try
         {
             mv = handlerAdapter
-                .handle(request, response, new HandlerMethod(studentAction, "retrieve", parameterTypes));
-        } catch (Exception ex)
+                    .handle(request, response, new HandlerMethod(studentAction, "retrieve", parameterTypes));
+        }
+        catch (Exception ex)
         {
             ex.printStackTrace();
         }
