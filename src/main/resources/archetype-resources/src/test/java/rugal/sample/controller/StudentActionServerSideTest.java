@@ -44,7 +44,7 @@ public class StudentActionServerSideTest extends ControllerServerSideTestBase
         request.setMethod(HttpMethod.POST.name());
         request.setContentType("application/json");
 
-        String json = "{\"id\":\"2\",\"name\":\"tenjin\",\"age\":\"23\"}";
+        String json = "{\"id\":\"1\",\"name\":\"tenjin\",\"age\":\"23\"}";
         request.setContent(json.getBytes());
         Class<?>[] parameterTypes = new Class<?>[]
         {
@@ -58,7 +58,6 @@ public class StudentActionServerSideTest extends ControllerServerSideTestBase
         }
         catch (Exception e)
         {
-            e.printStackTrace();
         }
     }
 
@@ -69,7 +68,7 @@ public class StudentActionServerSideTest extends ControllerServerSideTestBase
         request.setMethod(HttpMethod.GET.name());
         request.setRequestURI("/student/{id}");
         HashMap<String, String> pathVariablesMap = new HashMap<>(1);
-        pathVariablesMap.put("id", "3");
+        pathVariablesMap.put("id", "1");
         request.setAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE, pathVariablesMap);
         Class<?>[] parameterTypes = new Class<?>[]
         {

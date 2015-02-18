@@ -3,7 +3,6 @@ package config;
 import java.util.ArrayList;
 import java.util.List;
 import ml.rugal.sshcommon.springmvc.method.annotation.FormModelMethodArgumentResolver;
-import ml.rugal.sshcommon.springmvc.method.annotation.RequestJsonParamMethodArgumentResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,13 +10,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 /**
@@ -45,7 +42,6 @@ public class WebApplicationContext extends WebMvcConfigurerAdapter
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers)
     {
         argumentResolvers.add(new FormModelMethodArgumentResolver());
-        argumentResolvers.add(new RequestJsonParamMethodArgumentResolver());
     }
 
     @Override
@@ -54,10 +50,6 @@ public class WebApplicationContext extends WebMvcConfigurerAdapter
         configurer.favorPathExtension(false).favorParameter(false);
         configurer.defaultContentType(MediaType.APPLICATION_JSON);
         configurer.mediaType("json", MediaType.APPLICATION_JSON);
-//        configurer.mediaType("html", MediaType.TEXT_HTML);
-//        configurer.mediaType("js", MediaType.valueOf("text/javascript"));
-//        configurer.mediaType("xls", MediaType.valueOf("application/vnd.ms-excel"));
-//        configurer.mediaType("csv", MediaType.valueOf("text/csv"));
     }
 
     @Override
@@ -66,7 +58,6 @@ public class WebApplicationContext extends WebMvcConfigurerAdapter
         GsonHttpMessageConverter messageConverter = new GsonHttpMessageConverter();
         List<MediaType> supportedMediaTypes = new ArrayList<>();
         supportedMediaTypes.add(MediaType.APPLICATION_JSON);
-//        supportedMediaTypes.add(MediaType.valueOf("text/javascript"));
         messageConverter.setSupportedMediaTypes(supportedMediaTypes);
         converters.add(messageConverter);
     }
@@ -79,12 +70,6 @@ public class WebApplicationContext extends WebMvcConfigurerAdapter
 //        resolver.setSuffix(".jsp");
 //        return resolver;
 //    }
-    // @Bean
-    public HandlerAdapter annotationMethodHandlerAdapter()
-    {
-        return new RequestMappingHandlerAdapter();
-    }
-
     @Bean
     public AbstractHandlerMapping defaultAnnotationHandlerMapping()
     {
