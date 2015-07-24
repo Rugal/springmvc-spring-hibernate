@@ -22,8 +22,11 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
- *
+ * Replace all XML file with Java based configuration only.
+ * Servlet version must above 3.0
+ * <p>
  * @author Rugal Bernstein
+ * @since 0.6
  */
 public class ServletContainerInitializer extends AbstractAnnotationConfigDispatcherServletInitializer
 {
