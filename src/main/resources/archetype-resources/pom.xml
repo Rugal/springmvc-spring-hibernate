@@ -15,6 +15,7 @@
     </licenses>
     <properties>
         <spring-version>4.1.4.RELEASE</spring-version>
+        <jackson-2-version>2.2.0</jackson-2-version>
         <!-- Using utf-8 encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -31,7 +32,7 @@
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>2.3.2</version>
+            <version>2.3.7</version>
         </dependency>
         <!-- Data Source stop -->
         <!-- Hibernate start-->
@@ -89,7 +90,7 @@
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
-            <version>3.2.1.Final</version>
+            <version>3.1.3.GA</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.transaction</groupId>
@@ -127,7 +128,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <!-- JAVAEE capacity stop -->
         <!-- Unit Test start -->
@@ -238,12 +239,36 @@
             <version>2.3.1</version>
         </dependency>
         <!--I am planning to remove Jackson-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-2-version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-2-version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-2-version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-smile</artifactId>
+            <version>${jackson-2-version}</version>
+            <scope>runtime</scope>
+        </dependency>
         <!-- spring web mvc stop -->
         <!-- Auto Append -->
         <dependency>
             <groupId>ml.rugal</groupId>
             <artifactId>ssh-common</artifactId>
-            <version>0.2</version>
+            <version>0.1</version>
         </dependency>
     </dependencies>
     <build>
@@ -251,7 +276,7 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
+                    <version>3.3</version>
                     <configuration>
                         <source>1.8</source>
                         <target>1.8</target>
@@ -259,55 +284,23 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>tomcat-maven-plugin</artifactId>
-                    <version>1.1</version>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.4</version>
                     <configuration>
-                        <url>http://localhost:8080/manager/text</url>
-                        <server>tomcat</server>
-                        <path>/food</path>
+                        <failonmissingwebxml>false</failonmissingwebxml>
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.2</version>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>9.3.0.M2</version>
                     <configuration>
-                        <!-- http port -->
-                        <port>8080</port>
-                        <!-- application path always starts with /-->
-                        <path>/</path>
-                        <!-- optional path to a context file -->
-                        <contextFile>${tomcatContextXml}</contextFile>
-                        <!-- optional system propoerties you want to add -->
-                        <systemProperties>
-                            <appserver.base>${project.build.directory}/appserver-base</appserver.base>
-                            <appserver.home>${project.build.directory}/appserver-home</appserver.home>
-                            <derby.system.home>${project.build.directory}/appserver-base/logs</derby.system.home>
-                            <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
-                        </systemProperties>
-                        <!-- if you want to use test dependencies rather than only runtime -->
-                        <useTestClasspath>false</useTestClasspath>
-                        <!-- optional if you want to add some extra directories into the classloader -->
-                        <additionalClasspathDirs>
-                            <additionalClasspathDir/>
-                        </additionalClasspathDirs>
-                    </configuration>
-                    <!-- For any extra dependencies needed when running embedded Tomcat (not WAR dependencies) add them below -->
-                    <dependencies/>
-                </plugin>
-                <plugin>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>maven-jetty-plugin</artifactId>
-                    <version>6.1.10</version>
-                    <configuration>
+                        <httpConnector>
+                            <port>8080</port>
+                            <host>localhost</host>
+                        </httpConnector>
                         <scanIntervalSeconds>10</scanIntervalSeconds>
-                        <connectors>
-                            <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                                <port>8080</port>
-                                <maxIdleTime>60000</maxIdleTime>
-                            </connector>
-                        </connectors>
                     </configuration>
                 </plugin>
             </plugins>

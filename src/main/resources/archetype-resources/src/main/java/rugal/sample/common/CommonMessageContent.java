@@ -2,16 +2,17 @@ package rugal.sample.common;
 
 /**
  *
- * This interface contain most of referred message content used in {@code Message} feedback.
+ * This interface contain most of referred message content used in
+ * {@code Message} feedback.
  *
  * @author Rugal Bernstein
  */
 public interface CommonMessageContent
 {
 
-    String SAVE_SUCCEED = "New studen registered";
+    String SAVE_SUCCEED = "New student registered";
 
-    String PROFILE_UPDATED = "Studen profile updated";
+    String PROFILE_UPDATED = "Student profile updated";
 
     String STUDENT_DELETED = "Student profile deleted";
 

@@ -23,10 +23,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @PropertySource(
-        {
-            "classpath:jdbc.properties",
-            "classpath:hibernate.properties"
-        })
+    {
+        "classpath:jdbc.properties",
+        "classpath:hibernate.properties"
+    })
 @ComponentScan(value = "rugal")
 public class ApplicationContext
 {
@@ -83,7 +83,7 @@ public class ApplicationContext
         Properties hibernateProperties = new Properties();
         hibernateProperties.put(hibernate_dialect, env.getProperty(hibernate_dialect));
         hibernateProperties
-                .put(hibernate_current_session_context_class, env.getProperty(hibernate_current_session_context_class));
+            .put(hibernate_current_session_context_class, env.getProperty(hibernate_current_session_context_class));
         hibernateProperties.put(hibernate_connection_autocommit, env.getProperty(hibernate_connection_autocommit));
         hibernateProperties.put(hibernate_format_sql, env.getProperty(hibernate_format_sql));
         hibernateProperties.put(hibernate_hbm2ddl_auto, env.getProperty(hibernate_hbm2ddl_auto));

@@ -13,7 +13,7 @@ import org.springframework.web.context.WebApplicationContext;
  *
  * @author rugal
  */
-@ContextConfiguration(classes = config.WebApplicationContext.class)
+@ContextConfiguration(classes = config.SpringMVCApplicationContext.class)
 @WebAppConfiguration
 @Ignore
 public abstract class ControllerClientSideTestBase extends JUnitSpringTestBase

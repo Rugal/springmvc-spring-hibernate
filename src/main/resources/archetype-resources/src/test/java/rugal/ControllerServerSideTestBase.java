@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  * @author Rugal Bernstein
  */
 @WebAppConfiguration
-@ContextConfiguration(classes = config.WebApplicationContext.class)
+@ContextConfiguration(classes = config.SpringMVCApplicationContext.class)
 @Ignore
 public abstract class ControllerServerSideTestBase extends JUnitSpringTestBase
 {
