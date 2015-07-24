@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ml.rugal.archetype</groupId>
     <artifactId>springmvc-spring-hibernate</artifactId>
-    <version>0.5</version>
+    <version>0.6</version>
     <packaging>jar</packaging>
 
     <name>Archetype - springmvc.spring.hibernate</name>
@@ -17,7 +17,7 @@
     <developers>
         <developer>
             <name>Rugal Bernstein</name>
-            <email>ryujinwrath@gmail.com</email>
+            <email>rugal.bernstein.0@gmail.com</email>
         </developer>
     </developers>
 
