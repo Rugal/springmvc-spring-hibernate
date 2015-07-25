@@ -7,10 +7,13 @@ An excellent skeleton code for JavaEE application based on:
 2. Spring Framework 4
 3. Hibernate 4
 
-##Important components used
+###Important components used
 
 1. Connection pool: Hikari CP
 2. JSON mapper: Gson
+
+
+---------------------------
 
 This is my first contribution to maven repository, to save it save a template for future contributions.
 Usage:
@@ -25,11 +28,15 @@ Usage:
 
 For more details please refer to[`official page`](http://rugal.github.io/development/2014/07/06/my-archetype-in-maven/).
 
+
+--------------------------------
+
 #version log
 Since version `0.6`, Replace all XML file with Java based configuration.
 Since version `0.5`, I start to use [HikariCP](https://github.com/brettwooldridge/HikariCP) as connection pool. Replace Jackson with Gson.
 Since version `0.3`, I extract basic Hibernate util classes into [ssh-common](https://github.com/Rugal/ssh-common).
 Since version `0.2`, I start to use Java based configuration for application context and web context.
+
 
 
 #commit log
