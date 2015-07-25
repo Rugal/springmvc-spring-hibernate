@@ -17,7 +17,7 @@ This skeleton based on:
 ---------------------
 
 Since `0.6`, I started to use Java based configuration only.
-Please modify some configuration files under `conf` package.
+Please modify some configuration files under `config` package.
 
 1. `ServletContainerInitializer`: Container support java only configuration since Servlet 3.0. As long as you specify this file, container will use this class as configuration file.
 2. `ApplicationContext`: specify entity scanning, data source configuration and transaction.

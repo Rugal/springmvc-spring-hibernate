@@ -32,14 +32,25 @@ For more details please refer to[`official page`](http://rugal.github.io/develop
 --------------------------------
 
 #version log
-Since version `0.6`, Replace all XML file with Java based configuration.
-Since version `0.5`, I start to use [HikariCP](https://github.com/brettwooldridge/HikariCP) as connection pool. Replace Jackson with Gson.
-Since version `0.3`, I extract basic Hibernate util classes into [ssh-common](https://github.com/Rugal/ssh-common).
-Since version `0.2`, I start to use Java based configuration for application context and web context.
+
+###0.6
+Replace all XML file with Java based configuration. Removed jackson products.  
+
+###0.5
+I start to use [HikariCP](https://github.com/brettwooldridge/HikariCP) as connection pool. Replace Jackson with Gson.
+
+###0.3
+I extract basic Hibernate util classes into [ssh-common](https://github.com/Rugal/ssh-common).
+
+###0.2
+I start to use Java based configuration for application context and web context.
 
 
 
 #commit log
+
+###2015-07-25
+Remove all jackson products.  
 
 ###2015-07-24 15:14
 Remove all xml configuration file. Use annotation based configuration only.

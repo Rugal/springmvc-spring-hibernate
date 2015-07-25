@@ -52,11 +52,15 @@ public class ExceptionAction
 
     /**
      *
-     * This method is to address no handler request, throw exception into 404 exception advisor
+     * This method is to address no handler request, throw exception into 404
+     * exception advisor
      *
      * @param request
+     *                <p>
      * @return
-     * @throws org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException
+     *         <p>
+     * @throws
+     * org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException
      */
     @RequestMapping("/**")
     @ResponseBody
@@ -65,7 +69,7 @@ public class ExceptionAction
         LOG
             .warn(MessageFormat
                 .format("{0} occured, request URL: {1}, request host: {2}", NOT_FOUND, request
-                    .getRequestURI(), request.getRemoteAddr()));
+                        .getRequestURI(), request.getRemoteAddr()));
         throw new NoSuchRequestHandlingMethodException(request);
     }
 
@@ -74,6 +78,7 @@ public class ExceptionAction
      *
      * @param req
      * @param e
+     *            <p>
      * @return
      */
     @ResponseBody
@@ -94,6 +99,7 @@ public class ExceptionAction
      *
      * @param req
      * @param e
+     *            <p>
      * @return
      */
     @ResponseBody
@@ -104,7 +110,7 @@ public class ExceptionAction
         })
     public Message notFound(HttpServletRequest req, Exception e)
     {
-        LOG.error(e.getMessage(), e);
+        LOG.warn(e.getMessage());
         return Message.failMessage(NOT_FOUND);
     }
 
@@ -113,6 +119,7 @@ public class ExceptionAction
      *
      * @param req
      * @param e
+     *            <p>
      * @return
      */
     @ResponseBody
@@ -131,6 +138,7 @@ public class ExceptionAction
      *
      * @param req
      * @param e
+     *            <p>
      * @return
      */
     @ResponseBody
@@ -149,6 +157,7 @@ public class ExceptionAction
      *
      * @param req
      * @param e
+     *            <p>
      * @return
      */
     @ResponseBody
@@ -167,6 +176,7 @@ public class ExceptionAction
      *
      * @param req
      * @param e
+     *            <p>
      * @return
      */
     @ResponseBody
@@ -185,6 +195,7 @@ public class ExceptionAction
      *
      * @param req
      * @param e
+     *            <p>
      * @return
      */
     @ResponseBody

@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Java based application context configuration class.
+ * <p>
+ * Including data source and transaction manager configuration.
  *
  * @author Rugal Bernstein
  * @since 0.2

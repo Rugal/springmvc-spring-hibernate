@@ -3,7 +3,6 @@ package config;
 import java.util.ArrayList;
 import java.util.List;
 import ml.rugal.sshcommon.springmvc.method.annotation.FormModelMethodArgumentResolver;
-import ml.rugal.sshcommon.springmvc.method.annotation.RequestJsonParamMethodArgumentResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +21,8 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 /**
  * Java based Web context configuration class.
+ * <p>
+ * Including argument resolution, message converter, view resolution etc.,
  *
  * @author Rugal Bernstein
  * @since 0.2
@@ -45,7 +46,6 @@ public class SpringMVCApplicationContext extends WebMvcConfigurerAdapter
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers)
     {
         argumentResolvers.add(new FormModelMethodArgumentResolver());
-        argumentResolvers.add(new RequestJsonParamMethodArgumentResolver());
     }
 
     @Override
@@ -54,10 +54,6 @@ public class SpringMVCApplicationContext extends WebMvcConfigurerAdapter
         configurer.favorPathExtension(false).favorParameter(false);
         configurer.defaultContentType(MediaType.APPLICATION_JSON);
         configurer.mediaType("json", MediaType.APPLICATION_JSON);
-//        configurer.mediaType("html", MediaType.TEXT_HTML);
-//        configurer.mediaType("js", MediaType.valueOf("text/javascript"));
-//        configurer.mediaType("xls", MediaType.valueOf("application/vnd.ms-excel"));
-//        configurer.mediaType("csv", MediaType.valueOf("text/csv"));
     }
 
     @Override
