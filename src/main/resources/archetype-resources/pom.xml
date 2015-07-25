@@ -232,7 +232,6 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring-version}</version>
         </dependency>
-        <!--I try to use only GSON in the future-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
