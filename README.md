@@ -20,7 +20,7 @@ Usage:
 
     mvn archetype:generate  -DarchetypeGroupId=ml.rugal.archetype       \
                 -DarchetypeArtifactId=springmvc-spring-hibernate  \
-                -DarchetypeVersion=0.5          \
+                -DarchetypeVersion=0.6          \
                 -DgroupId=your.group.id         \
                 -DartifactId=your.artifact.id   \
                 -Dversion=your.version
