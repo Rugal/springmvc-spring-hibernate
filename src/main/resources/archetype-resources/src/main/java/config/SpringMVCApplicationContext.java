@@ -34,7 +34,7 @@ import rugal.sample.springmvc.interceptor.AuthenticationInterceptor;
 @EnableWebMvc
 @ComponentScan(
     {
-        "rugal.sample.controller"
+        "rugal.sample.springmvc.controller"
     })
 public class SpringMVCApplicationContext extends WebMvcConfigurerAdapter
 {
