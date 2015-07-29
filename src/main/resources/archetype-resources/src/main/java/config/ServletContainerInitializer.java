@@ -1,6 +1,8 @@
 package config;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import org.springframework.orm.hibernate4.support.OpenSessionInViewFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -12,6 +14,15 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  */
 public class ServletContainerInitializer extends AbstractAnnotationConfigDispatcherServletInitializer
 {
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException
+    {
+        servletContext.addFilter("openSessionInViewFilter", openSessionInViewFilter()).addMappingForUrlPatterns(null, false, "/*");
+        servletContext.addFilter("characterEncodingFilter", characterEncodingFilter()).addMappingForUrlPatterns(null, true, "/*");
+        servletContext.addFilter("hiddenHttpMethodFilter", hiddenHttpMethodFilter()).addMappingForUrlPatterns(null, true, "/*");
+        super.onStartup(servletContext);
+    }
 
     @Override
     protected Class<?>[] getRootConfigClasses()
@@ -52,14 +63,21 @@ public class ServletContainerInitializer extends AbstractAnnotationConfigDispatc
         return true;
     }
 
-    @Override
-    protected Filter[] getServletFilters()
+    private Filter openSessionInViewFilter()
+    {
+        return new OpenSessionInViewFilter();
+    }
+
+    private Filter characterEncodingFilter()
     {
         CharacterEncodingFilter cef = new CharacterEncodingFilter();
         cef.setEncoding("UTF-8");
-        return new Filter[]
-        {
-            new OpenSessionInViewFilter(), new HiddenHttpMethodFilter(), cef
-        };
+        return cef;
     }
+
+    private Filter hiddenHttpMethodFilter()
+    {
+        return new HiddenHttpMethodFilter();
+    }
+
 }

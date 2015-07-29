@@ -1,4 +1,4 @@
-package rugal.sample.controller;
+package rugal.sample.springmvc.controller;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

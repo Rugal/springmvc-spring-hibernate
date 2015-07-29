@@ -3,6 +3,7 @@ package config;
 import java.util.ArrayList;
 import java.util.List;
 import ml.rugal.sshcommon.springmvc.method.annotation.FormModelMethodArgumentResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +15,12 @@ import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import rugal.sample.springmvc.interceptor.AuthenticationInterceptor;
 
 /**
  * Java based Web context configuration class.
@@ -35,6 +38,9 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
     })
 public class SpringMVCApplicationContext extends WebMvcConfigurerAdapter
 {
+
+    @Autowired
+    private AuthenticationInterceptor authenticationInterceptor;
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer)
@@ -87,4 +93,11 @@ public class SpringMVCApplicationContext extends WebMvcConfigurerAdapter
         mapping.setUseSuffixPatternMatch(false);
         return mapping;
     }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry)
+    {
+        registry.addInterceptor(authenticationInterceptor).addPathPatterns("/**");
+    }
+
 }

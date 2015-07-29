@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package rugal.sample.controller;
+package rugal.sample.springmvc.controller;
 
 import java.util.HashMap;
 import org.junit.Ignore;
@@ -54,7 +54,7 @@ public class StudentActionServerSideTest extends ControllerServerSideTestBase
         try
         {
             mv = handlerAdapter
-                    .handle(request, response, new HandlerMethod(studentAction, "registerStudent", parameterTypes));
+                .handle(request, response, new HandlerMethod(studentAction, "registerStudent", parameterTypes));
         }
         catch (Exception e)
         {
@@ -63,7 +63,7 @@ public class StudentActionServerSideTest extends ControllerServerSideTestBase
     }
 
     @Test
-//    @Ignore
+    @Ignore
     public void getAddress()
     {
         request.setMethod(HttpMethod.GET.name());
@@ -79,7 +79,7 @@ public class StudentActionServerSideTest extends ControllerServerSideTestBase
         try
         {
             mv = handlerAdapter
-                    .handle(request, response, new HandlerMethod(studentAction, "retrieve", parameterTypes));
+                .handle(request, response, new HandlerMethod(studentAction, "retrieve", parameterTypes));
         }
         catch (Exception ex)
         {

@@ -18,4 +18,6 @@ public interface CommonMessageContent
 
     String GET_STUDENT = "Get student profile";
 
+    String ACCESS_FORBIDDEN = "The combination of username and credential does not match";
+
 }

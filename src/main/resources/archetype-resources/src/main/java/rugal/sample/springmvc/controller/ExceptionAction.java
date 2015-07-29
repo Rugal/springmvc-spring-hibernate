@@ -1,4 +1,4 @@
-package rugal.sample.controller;
+package rugal.sample.springmvc.controller;
 
 import java.text.MessageFormat;
 import javax.servlet.http.HttpServletRequest;
@@ -64,6 +64,7 @@ public class ExceptionAction
      */
     @RequestMapping("/**")
     @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public Message PathNotFoundHandler(HttpServletRequest request) throws NoSuchRequestHandlingMethodException
     {
         LOG
@@ -127,6 +128,7 @@ public class ExceptionAction
         {
             HttpRequestMethodNotSupportedException.class
         })
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public Message methodNotAllowed(HttpServletRequest req, Exception e)
     {
         LOG.error(e.getMessage(), e);
@@ -146,6 +148,7 @@ public class ExceptionAction
         {
             HttpMediaTypeNotAcceptableException.class
         })
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     public Message notAcceptable(HttpServletRequest req, Exception e)
     {
         LOG.error(e.getMessage(), e);
@@ -165,6 +168,7 @@ public class ExceptionAction
         {
             HttpMediaTypeNotSupportedException.class
         })
+    @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     public Message unsupportedMediaType(HttpServletRequest req, Exception e)
     {
         LOG.error(e.getMessage(), e);
@@ -184,6 +188,7 @@ public class ExceptionAction
         {
             ConversionNotSupportedException.class, HttpMessageNotWritableException.class,
         })
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Message internalServerError(HttpServletRequest req, Exception e)
     {
         LOG.error(e.getMessage(), e);
@@ -203,6 +208,7 @@ public class ExceptionAction
         {
             Exception.class
         })
+    @ResponseStatus(HttpStatus.SEE_OTHER)
     public Message otherException(HttpServletRequest req, Exception e)
     {
         LOG.error("Other exception", e);
