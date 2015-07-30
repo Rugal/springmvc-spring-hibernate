@@ -97,6 +97,7 @@ public class SpringMVCApplicationContext extends WebMvcConfigurerAdapter
     @Override
     public void addInterceptors(InterceptorRegistry registry)
     {
+        //This is a very important interceptor for authentication usage
         registry.addInterceptor(authenticationInterceptor).addPathPatterns("/**");
     }
 
