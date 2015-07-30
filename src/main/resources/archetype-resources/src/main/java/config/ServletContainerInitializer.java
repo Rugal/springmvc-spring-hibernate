@@ -9,8 +9,10 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
- *
+ * This is servlet initializer class replace for web.xml file.
+ * 
  * @author Rugal Bernstein
+ * @since 0.6
  */
 public class ServletContainerInitializer extends AbstractAnnotationConfigDispatcherServletInitializer
 {
@@ -24,6 +26,9 @@ public class ServletContainerInitializer extends AbstractAnnotationConfigDispatc
         super.onStartup(servletContext);
     }
 
+    /**
+     * Common configuration.
+     */
     @Override
     protected Class<?>[] getRootConfigClasses()
     {
@@ -33,6 +38,9 @@ public class ServletContainerInitializer extends AbstractAnnotationConfigDispatc
         };
     }
 
+    /**
+     * SpringMVC configuration.
+     */
     @Override
     protected Class<?>[] getServletConfigClasses()
     {
