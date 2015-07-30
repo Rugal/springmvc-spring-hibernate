@@ -243,7 +243,7 @@
         <dependency>
             <groupId>ml.rugal</groupId>
             <artifactId>ssh-common</artifactId>
-            <version>0.2</version>
+            <version>0.3</version>
         </dependency>
         <!-- spring web mvc stop -->
         <!-- spring data start-->

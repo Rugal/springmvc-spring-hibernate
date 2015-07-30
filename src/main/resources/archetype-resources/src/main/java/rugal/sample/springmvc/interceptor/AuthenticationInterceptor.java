@@ -3,12 +3,12 @@ package rugal.sample.springmvc.interceptor;
 import com.google.gson.Gson;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import ml.rugal.sshcommon.springmvc.util.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import rugal.sample.common.CommonMessageContent;
-import rugal.sample.common.Message;
 
 /**
  *

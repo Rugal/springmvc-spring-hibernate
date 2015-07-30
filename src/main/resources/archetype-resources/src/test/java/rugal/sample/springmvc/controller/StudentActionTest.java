@@ -1,12 +1,12 @@
 package rugal.sample.springmvc.controller;
 
+import ml.rugal.sshcommon.springmvc.util.Message;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import rugal.ControllerClientSideTestBase;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import rugal.ControllerClientSideTestBase;
-import rugal.sample.common.Message;
 import rugal.sample.core.entity.Student;
 
 /**

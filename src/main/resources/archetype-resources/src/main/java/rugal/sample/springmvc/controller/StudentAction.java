@@ -1,5 +1,6 @@
 package rugal.sample.springmvc.controller;
 
+import ml.rugal.sshcommon.springmvc.util.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import rugal.sample.common.CommonMessageContent;
-import rugal.sample.common.Message;
 import rugal.sample.core.entity.Student;
 import rugal.sample.core.service.StudentService;
 
@@ -34,6 +34,7 @@ public class StudentAction
      * Persist a student bean into database.
      *
      * @param bean student bean resembled from request body.
+     *
      * @return The persisted student bean.
      */
     @ResponseBody
@@ -52,6 +53,7 @@ public class StudentAction
      *
      * @param id   primary key of target student.
      * @param bean the newer student bean
+     *
      * @return
      */
     @ResponseBody
@@ -73,6 +75,7 @@ public class StudentAction
      * DELETE a student record from database.
      *
      * @param id the target student id.
+     *
      * @return
      */
     @ResponseBody
@@ -91,6 +94,7 @@ public class StudentAction
      * GET a student record from database.
      *
      * @param id primary key of target student.
+     *
      * @return
      */
     @ResponseBody
