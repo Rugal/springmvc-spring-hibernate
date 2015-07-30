@@ -27,7 +27,8 @@ import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMeth
 import rugal.sample.common.Message;
 
 /**
- * This is the fundamental exception and HTTP error code mapping class.
+ * This is the fundamental exception and HTTP error code mapping class. 
+ * This class could handle most of exceptions thrown in controllers.
  *
  * @author Rugal Bernstein
  */
