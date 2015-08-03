@@ -5,7 +5,6 @@ import ml.rugal.sshcommon.page.Pagination;
 import org.hibernate.Criteria;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import rugal.sample.springmvc.controller.ExceptionAction;
 import rugal.sample.core.dao.StudentDao;
 import rugal.sample.core.entity.Student;
 
@@ -17,7 +16,7 @@ import rugal.sample.core.entity.Student;
 public class StudentDaoImpl extends HibernateBaseDao<Student, Integer> implements StudentDao
 {
 
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(ExceptionAction.class
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(StudentDaoImpl.class
         .getName());
 
     @Override

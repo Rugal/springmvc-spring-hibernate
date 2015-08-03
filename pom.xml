@@ -5,7 +5,6 @@
     <artifactId>springmvc-spring-hibernate</artifactId>
     <version>0.6</version>
     <packaging>jar</packaging>
-
     <name>Archetype - springmvc.spring.hibernate</name>
     <description>A pretty useful JavaEE application archetype based on springmvc spring and hibernate</description>
     <url>http://rugal.ga/development/2014/07/06/my-archetype-in-maven/</url>

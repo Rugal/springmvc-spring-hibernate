@@ -15,9 +15,11 @@
  */
 package rugal.sample.springmvc.controller;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import rugal.ControllerClientSideTestBase;
 
@@ -29,12 +31,23 @@ public class StudentActionClientSideTest extends ControllerClientSideTestBase
 {
 
     @Test
-//    @Ignore
+    @Ignore
     public void test() throws Exception
     {
         this.mockMvc.perform(get("/student/1").contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.parseMediaType("application/json;charset=UTF-8"))).andExpect(status()
-                        .isOk());
+            .accept(MediaType.parseMediaType("application/json;charset=UTF-8"))).andExpect(status()
+                .isOk());
+        System.out.println("Rugal Bernstein");
+    }
+
+    @Test
+    @Ignore
+    public void testPost() throws Exception
+    {
+        String json = "{\"id\":2,\"name\":\"tenjin\",\"age\":23}";
+        this.mockMvc.perform(post(json).contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.parseMediaType("application/json;charset=UTF-8"))).andExpect(status()
+                .isOk());
         System.out.println("Rugal Bernstein");
     }
 }

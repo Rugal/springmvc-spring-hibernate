@@ -6,7 +6,7 @@
     <version>${version}</version>
     <packaging>war</packaging>
     <name>springmvc-spring-hibernate skeleton</name>
-    <description>A pretty useful JavaEE application skeleton based on springmvc spring and hibernate with Java based configuration</description>
+    <description>JavaEE application skeleton based on springmvc spring and hibernate</description>
     <properties>
         <spring-version>4.1.4.RELEASE</spring-version>
         <!-- Using utf-8 encoding -->
@@ -62,6 +62,7 @@
                     <artifactId>xml-apis</artifactId>
                 </exclusion>
             </exclusions>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate.common</groupId>
@@ -78,6 +79,7 @@
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>3.19.0-GA</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -125,7 +127,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
-            <!--<scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
         <!-- JAVAEE capacity stop -->
         <!-- Unit Test start -->
@@ -145,12 +147,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring-version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-mock</artifactId>
             <version>2.0.8</version>
-            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <artifactId>junit</artifactId>
@@ -179,7 +181,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
-            <type>jar</type>
             <scope>runtime</scope>
             <version>${spring-version}</version>
         </dependency>
@@ -198,7 +199,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <type>jar</type>
             <version>${spring-version}</version>
         </dependency>
         <dependency>
@@ -210,6 +210,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>${spring-version}</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -250,11 +251,13 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
             <version>1.10.1.RELEASE</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>1.8.5</version>
+            <scope>runtime</scope>
         </dependency>
         <!-- spring data stop -->
         <!-- Auto Append -->
@@ -263,6 +266,7 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
             <type>jar</type>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
