@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
  */
 @ControllerAdvice
 @Controller
-public class ExceptionAction extends BaseExceptionAction
+public class ExceptionController extends BaseExceptionAction
 {
 
 }

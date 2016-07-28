@@ -15,6 +15,10 @@
  */
 package rugal.sample.core.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,45 +30,39 @@ import rugal.sample.core.service.StudentService;
  *
  * @author rugal
  */
-public class StudentServiceImplTest extends JUnitSpringTestBase
+@Slf4j
+public class StudentServiceIntegrationTest extends JUnitSpringTestBase
 {
 
     @Autowired
     private StudentService studentService;
 
-    public StudentServiceImplTest()
+    @Autowired
+    private Student bean;
+
+    @Before
+    public void setUp()
     {
+        LOG.debug("setUp");
+        studentService.getDAO().save(bean);
     }
 
-//    @Test
-    public void testDeleteById()
+    @After
+    public void tearDown()
     {
-        System.out.println("deleteById");
-        Integer id = null;
-        StudentServiceImpl instance = new StudentServiceImpl();
-        Student expResult = null;
-        Student result = studentService.deleteById(id);
+        LOG.debug("tearDown");
+        studentService.getDAO().delete(bean);
     }
 
     @Test
     @Ignore
-    public void testFindById()
+    public void testUpdate()
     {
-        System.out.println("findById");
-        Integer id = 1;
-        studentService.findById(id);
+        LOG.debug("update");
+        String newName = "Test";
+        bean.setName(newName);
+        studentService.update(bean);
+        Student updated = studentService.getDAO().get(bean.getId());
+        Assert.assertEquals(newName, updated.getName());
     }
-
-    @Test
-//    @Ignore
-    public void testSave()
-    {
-        System.out.println("save");
-        Student bean = new Student();
-        bean.setId(2);
-        bean.setAge(132);
-        bean.setName("Rugal");
-        studentService.save(bean);
-    }
-
 }

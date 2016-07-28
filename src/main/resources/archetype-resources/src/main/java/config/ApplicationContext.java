@@ -1,5 +1,6 @@
 package config;
 
+import com.google.gson.Gson;
 import com.zaxxer.hikari.HikariDataSource;
 import java.util.Properties;
 import javax.sql.DataSource;
@@ -13,6 +14,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import rugal.sample.core.entity.Student;
 
 /**
  * Java based application context configuration class.
@@ -33,22 +35,28 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class ApplicationContext
 {
 
-    public static final String hibernate_connection_autocommit = "hibernate.connection.autocommit";
+    private static final String CONNECTION_AUTOCOMMIT = "hibernate.connection.autocommit";
 
-    public static final String hibernate_format_sql = "hibernate.format_sql";
+    private static final String FORMAT_SQL = "hibernate.format_sql";
 
-    public static final String hibernate_hbm2ddl_auto = "hibernate.hbm2ddl.auto";
+    private static final String HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
 
-    public static final String hibernate_show_sql = "hibernate.show_sql";
+    private static final String SHOW_SQL = "hibernate.show_sql";
 
-    public static final String hibernate_current_session_context_class = "hibernate.current_session_context_class";
+    private static final String CURRENT_SESSION_CONTEXT_CLASS = "hibernate.current_session_context_class";
 
-    public static final String hibernate_dialect = "hibernate.dialect";
+    private static final String DIALECT = "hibernate.dialect";
 
-    public static final String package_to_scan = "rugal.sample.core.entity";
+    private static final String PACKAGE_TO_SCAN = Student.class.getName();
 
     @Autowired
     private Environment env;
+
+    @Bean
+    public Gson gson()
+    {
+        return new Gson();
+    }
 
 //<editor-fold defaultstate="collapsed" desc="HikariCP Datasoure Configuration" >
     @Bean(destroyMethod = "close")
@@ -75,7 +83,7 @@ public class ApplicationContext
     {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(datasouce);
-        sessionFactory.setPackagesToScan(package_to_scan);
+        sessionFactory.setPackagesToScan(PACKAGE_TO_SCAN);
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
@@ -83,13 +91,13 @@ public class ApplicationContext
     private Properties hibernateProperties()
     {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.put(hibernate_dialect, env.getProperty(hibernate_dialect));
+        hibernateProperties.put(DIALECT, env.getProperty(DIALECT));
         hibernateProperties
-            .put(hibernate_current_session_context_class, env.getProperty(hibernate_current_session_context_class));
-        hibernateProperties.put(hibernate_connection_autocommit, env.getProperty(hibernate_connection_autocommit));
-        hibernateProperties.put(hibernate_format_sql, env.getProperty(hibernate_format_sql));
-        hibernateProperties.put(hibernate_hbm2ddl_auto, env.getProperty(hibernate_hbm2ddl_auto));
-        hibernateProperties.put(hibernate_show_sql, env.getProperty(hibernate_show_sql));
+            .put(CURRENT_SESSION_CONTEXT_CLASS, env.getProperty(CURRENT_SESSION_CONTEXT_CLASS));
+        hibernateProperties.put(CONNECTION_AUTOCOMMIT, env.getProperty(CONNECTION_AUTOCOMMIT));
+        hibernateProperties.put(FORMAT_SQL, env.getProperty(FORMAT_SQL));
+        hibernateProperties.put(HBM2DDL_AUTO, env.getProperty(HBM2DDL_AUTO));
+        hibernateProperties.put(SHOW_SQL, env.getProperty(SHOW_SQL));
 //        hibernateProperties.put(hibernate_connection_provider_class, env.getProperty(hibernate_connection_provider_class));
         return hibernateProperties;
 

@@ -1,6 +1,7 @@
 package config;
 
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
+import com.google.gson.Gson;
 import java.util.List;
 import ml.rugal.sshcommon.springmvc.method.annotation.FormModelMethodArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import rugal.sample.springmvc.controller.ExceptionController;
 import rugal.sample.springmvc.interceptor.AuthenticationInterceptor;
 
 /**
@@ -28,14 +31,11 @@ import rugal.sample.springmvc.interceptor.AuthenticationInterceptor;
  * Including argument resolution, message converter, view resolution etc.,
  *
  * @author Rugal Bernstein
- * @since 0.2
+ * @since 0.7
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(
-    {
-        "rugal.sample.springmvc.controller"
-    })
+@ComponentScan(basePackageClasses = ExceptionController.class)
 public class SpringMVCApplicationContext extends WebMvcConfigurerAdapter
 {
 
@@ -57,29 +57,33 @@ public class SpringMVCApplicationContext extends WebMvcConfigurerAdapter
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer)
     {
-        configurer.favorPathExtension(false).favorParameter(false);
+        configurer.favorPathExtension(false).favorParameter(false).ignoreAcceptHeader(false);
         configurer.defaultContentType(MediaType.APPLICATION_JSON);
-        configurer.mediaType("json", MediaType.APPLICATION_JSON);
     }
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters)
     {
+        converters.add(this.gsonHttpMessageConverter());
+    }
+
+    private HttpMessageConverter gsonHttpMessageConverter()
+    {
         GsonHttpMessageConverter messageConverter = new GsonHttpMessageConverter();
-        List<MediaType> supportedMediaTypes = new ArrayList<>();
-        supportedMediaTypes.add(MediaType.APPLICATION_JSON);
-        messageConverter.setSupportedMediaTypes(supportedMediaTypes);
-        converters.add(messageConverter);
+        messageConverter.setGson(new Gson());
+        messageConverter.setSupportedMediaTypes(Lists.newArrayList(MediaType.APPLICATION_JSON));
+        return messageConverter;
     }
 
 //    @Bean
-//    public InternalResourceViewResolver viewResolver()
-//    {
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("/WEB-INF/pages/");
-//        resolver.setSuffix(".jsp");
-//        return resolver;
-//    }
+    public InternalResourceViewResolver viewResolver()
+    {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/pages/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
+
     @Bean
     public HandlerAdapter annotationMethodHandlerAdapter()
     {
@@ -100,5 +104,4 @@ public class SpringMVCApplicationContext extends WebMvcConfigurerAdapter
         //This is a very important interceptor for authentication usage
         registry.addInterceptor(authenticationInterceptor).addPathPatterns("/**");
     }
-
 }

@@ -2,8 +2,7 @@ package rugal.sample.common;
 
 /**
  *
- * This interface contain most of referred message content used in
- * {@code Message} feedback.
+ * This interface contain most of referred message content used in {@code Message} feedback.
  *
  * @author Rugal Bernstein
  */
@@ -19,5 +18,4 @@ public interface CommonMessageContent
     String GET_STUDENT = "Get student profile";
 
     String ACCESS_FORBIDDEN = "Unmatched combination of username and credential";
-
 }

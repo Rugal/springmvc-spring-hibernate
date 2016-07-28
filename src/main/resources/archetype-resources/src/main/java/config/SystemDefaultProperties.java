@@ -1,4 +1,4 @@
-package rugal.sample.common;
+package config;
 
 /**
  *
@@ -8,8 +8,6 @@ package rugal.sample.common;
  */
 public interface SystemDefaultProperties
 {
-
-    String map_range_default = "1000";
 
     String ID = "id";
 

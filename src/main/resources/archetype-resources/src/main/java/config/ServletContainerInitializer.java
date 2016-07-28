@@ -10,7 +10,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 /**
  * This is servlet initializer class replace for web.xml file.
- * 
+ *
  * @author Rugal Bernstein
  * @since 0.6
  */
@@ -28,6 +28,8 @@ public class ServletContainerInitializer extends AbstractAnnotationConfigDispatc
 
     /**
      * Common configuration.
+     *
+     * @return
      */
     @Override
     protected Class<?>[] getRootConfigClasses()
@@ -40,6 +42,8 @@ public class ServletContainerInitializer extends AbstractAnnotationConfigDispatc
 
     /**
      * SpringMVC configuration.
+     *
+     * @return
      */
     @Override
     protected Class<?>[] getServletConfigClasses()

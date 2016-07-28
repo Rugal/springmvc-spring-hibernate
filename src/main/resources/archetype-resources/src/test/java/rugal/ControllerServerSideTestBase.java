@@ -10,12 +10,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 /**
- * This is a base test class for JUNIT test in controller testing<BR/>
+ * This is a base test class for JUNIT in testing controller logic only.<BR/>
  * It is really a very simple but useful test class, which skipped using web server, hence saved a
- * lot of time in
- * deployment!
+ * lot of time in deployment!
  *
  * @author Rugal Bernstein
+ * @since 0.5
  */
 @WebAppConfiguration
 @ContextConfiguration(classes = config.SpringMVCApplicationContext.class)

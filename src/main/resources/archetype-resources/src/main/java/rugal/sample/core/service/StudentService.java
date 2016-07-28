@@ -1,23 +1,14 @@
 package rugal.sample.core.service;
 
-import ml.rugal.sshcommon.page.Pagination;
 import rugal.sample.core.entity.Student;
+import rugal.sample.core.dao.StudentDAO;
 
 /**
  *
  * @author Rugal Bernstein
  */
-public interface StudentService
+public interface StudentService extends BaseService<StudentDAO>
 {
 
-    Student deleteById(Integer id);
-
-    Student findById(Integer id);
-
-    Pagination getPage(int pageNo, int pageSize);
-
-    Student save(Student bean);
-
     Student update(Student bean);
-
 }
