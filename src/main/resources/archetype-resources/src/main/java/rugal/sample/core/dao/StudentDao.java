@@ -11,14 +11,13 @@ import rugal.sample.core.entity.Student;
 public interface StudentDao
 {
 
-    Student deleteById(Integer id);
+    Student delete(Student bean);
 
-    Student findById(Integer id);
+    Student get(Integer id);
 
     Pagination getPage(int pageNo, int pageSize);
 
     Student save(Student bean);
 
     Student updateByUpdater(Updater<Student> updater);
-
 }
