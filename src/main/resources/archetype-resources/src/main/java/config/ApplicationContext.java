@@ -47,7 +47,7 @@ public class ApplicationContext
 
     private static final String DIALECT = "hibernate.dialect";
 
-    private static final String PACKAGE_TO_SCAN = Student.class.getName();
+    private static final String PACKAGE_TO_SCAN = Student.class.getPackage().getName();
 
     @Autowired
     private Environment env;
