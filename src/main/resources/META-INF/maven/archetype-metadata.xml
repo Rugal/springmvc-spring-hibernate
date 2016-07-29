@@ -26,9 +26,10 @@
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
-            <directory>src</directory>
+            <directory></directory>
             <includes>
-                <include>**/lombok.config</include>
+                <include>lombok.config</include>
+                <include>.gitignore</include>
             </includes>
         </fileSet>
     </fileSets>
