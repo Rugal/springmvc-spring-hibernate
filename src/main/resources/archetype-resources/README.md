@@ -16,4 +16,4 @@ This skeleton based on:
 
 ---------------------
 
-For configuration, usage, version log please refer to[`official page`](http://rugal.github.io/development/2014/07/06/my-archetype-in-maven/).
+For configuration, usage, version log please refer to[`official page`](http://rugal.github.io/development/2014/07/06/my-archetype-in-maven).
