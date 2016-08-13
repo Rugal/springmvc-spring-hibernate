@@ -13,19 +13,17 @@ springmvc-spring-hibernate archetype
 
 
 
-This archetype is based on:
+## Components
 
 1. Springmvc 4
 2. Spring framework 4
 3. Hibernate 4
-4. Connection pool: Hikari CP
+4. Hikari CP
 5. Gson
+6. Lombok
 
 
 ---------------------
 
-For configuration, usage, version log please refer to[`official page`](http://rugal.github.io/development/2014/07/06/my-archetype-in-maven).
-
-
-For configuration, usage, version log please refer to[`official page`](http://rugal.github.io/development/2014/07/06/my-archetype-in-maven).
+[`official page`](http://rugal.github.io/development/2014/07/06/my-archetype-in-maven).
 
