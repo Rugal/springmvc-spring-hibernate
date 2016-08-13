@@ -12,5 +12,20 @@ springmvc-spring-hibernate archetype
                         -Dversion=your.version
 
 
+
+This archetype is based on:
+
+1. Springmvc 4
+2. Spring framework 4
+3. Hibernate 4
+4. Connection pool: Hikari CP
+5. Gson
+
+
+---------------------
+
+For configuration, usage, version log please refer to[`official page`](http://rugal.github.io/development/2014/07/06/my-archetype-in-maven).
+
+
 For configuration, usage, version log please refer to[`official page`](http://rugal.github.io/development/2014/07/06/my-archetype-in-maven).
 
