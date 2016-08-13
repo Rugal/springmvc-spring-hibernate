@@ -21,9 +21,3 @@ springmvc-spring-hibernate archetype
 4. Hikari CP
 5. Gson
 6. Lombok
-
-
----------------------
-
-[`official page`](http://rugal.github.io/development/2014/07/06/my-archetype-in-maven).
-
