@@ -2,19 +2,20 @@ package config;
 
 import com.google.gson.Gson;
 import com.zaxxer.hikari.HikariDataSource;
+import ga.rugal.sample.core.entity.PackageInfo;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import rugal.sample.core.entity.Student;
 
 /**
  * Java based application context configuration class.
@@ -24,54 +25,84 @@ import rugal.sample.core.entity.Student;
  * @author Rugal Bernstein
  * @since 0.2
  */
+@ComponentScan(basePackageClasses = ga.PackageInfo.class)
 @Configuration
 @EnableTransactionManagement
 @PropertySource(
     {
-        "classpath:jdbc.properties",
-        "classpath:hibernate.properties"
+        "classpath:hibernate.properties", "classpath:jdbc_${spring.profiles.active}.properties"
     })
-@ComponentScan(value = "rugal")
 public class ApplicationContext
 {
 
-    private static final String CONNECTION_AUTOCOMMIT = "hibernate.connection.autocommit";
+    public static final String AUTOCOMMIT = "hibernate.connection.autocommit";
 
-    private static final String FORMAT_SQL = "hibernate.format_sql";
+    public static final String FORMAT_SQL = "hibernate.format_sql";
 
-    private static final String HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
+    public static final String AUTO_DDL = "hibernate.hbm2ddl.auto";
 
-    private static final String SHOW_SQL = "hibernate.show_sql";
+    public static final String SHOW_SQL = "hibernate.show_sql";
 
-    private static final String CURRENT_SESSION_CONTEXT_CLASS = "hibernate.current_session_context_class";
+    public static final String CONTEXT_CLASS = "hibernate.current_session_context_class";
 
-    private static final String DIALECT = "hibernate.dialect";
+    public static final String DIALECT = "hibernate.dialect";
 
-    private static final String PACKAGE_TO_SCAN = Student.class.getPackage().getName();
-
-    @Autowired
-    private Environment env;
+    public static final String PACKAGE_TO_SCAN = PackageInfo.class.getPackage().getName();
 
     @Bean
-    public Gson gson()
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer()
+    {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+    @Value("${" + AUTOCOMMIT + "}")
+    private String autocommit;
+
+    @Value("${" + FORMAT_SQL + "}")
+    private String formatSql;
+
+    @Value("${" + AUTO_DDL + "}")
+    private String autoDDL;
+
+    @Value("${" + SHOW_SQL + "}")
+    private String showSql;
+
+    @Value("${" + CONTEXT_CLASS + "}")
+    private String contextClass;
+
+    @Value("${" + DIALECT + "}")
+    private String dialect;
+
+    @Value("${jdbc.username}")
+    private String username;
+
+    @Value("${jdbc.password}")
+    private String password;
+
+    @Value("${jdbc.driverClassName}")
+    private String driverClassName;
+
+    @Value("${jdbc.url}")
+    private String url;
+
+    @Bean
+    public Gson GSON()
     {
         return new Gson();
     }
 
-//<editor-fold defaultstate="collapsed" desc="HikariCP Datasoure Configuration" >
+//<editor-fold defaultstate="collapsed" desc="HikariCP Data Source Configuration">
     @Bean(destroyMethod = "close")
-    @Autowired
     public DataSource dataSource()
     {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setUsername(env.getProperty("jdbc.username"));
-        dataSource.setPassword(env.getProperty("jdbc.password"));
-        dataSource.setJdbcUrl(env.getProperty("jdbc.url"));
-        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+        dataSource.setUsername(this.username);
+        dataSource.setPassword(this.password);
+        dataSource.setJdbcUrl(this.url);
+        dataSource.setDriverClassName(this.driverClassName);
         dataSource.setConnectionTestQuery("SELECT 1;");
         dataSource.setMaximumPoolSize(3);
         dataSource.setAutoCommit(false);
-        //------------------------------
         return dataSource;
     }
 //</editor-fold>
@@ -79,26 +110,25 @@ public class ApplicationContext
 //<editor-fold defaultstate="collapsed" desc="Hibernate Session factory configuration">
     @Bean
     @Autowired
-    public LocalSessionFactoryBean sessionFactory(DataSource datasouce)
+    public LocalSessionFactoryBean sessionFactory(DataSource datasouce, Properties hibernateProperties)
     {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(datasouce);
         sessionFactory.setPackagesToScan(PACKAGE_TO_SCAN);
-        sessionFactory.setHibernateProperties(hibernateProperties());
+        sessionFactory.setHibernateProperties(hibernateProperties);
         return sessionFactory;
     }
 
-    private Properties hibernateProperties()
+    @Bean
+    public Properties hibernateProperties()
     {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.put(DIALECT, env.getProperty(DIALECT));
-        hibernateProperties
-            .put(CURRENT_SESSION_CONTEXT_CLASS, env.getProperty(CURRENT_SESSION_CONTEXT_CLASS));
-        hibernateProperties.put(CONNECTION_AUTOCOMMIT, env.getProperty(CONNECTION_AUTOCOMMIT));
-        hibernateProperties.put(FORMAT_SQL, env.getProperty(FORMAT_SQL));
-        hibernateProperties.put(HBM2DDL_AUTO, env.getProperty(HBM2DDL_AUTO));
-        hibernateProperties.put(SHOW_SQL, env.getProperty(SHOW_SQL));
-//        hibernateProperties.put(hibernate_connection_provider_class, env.getProperty(hibernate_connection_provider_class));
+        hibernateProperties.put(DIALECT, dialect);
+        hibernateProperties.put(CONTEXT_CLASS, contextClass);
+        hibernateProperties.put(AUTOCOMMIT, autocommit);
+        hibernateProperties.put(FORMAT_SQL, formatSql);
+        hibernateProperties.put(AUTO_DDL, autoDDL);
+        hibernateProperties.put(SHOW_SQL, showSql);
         return hibernateProperties;
 
     }

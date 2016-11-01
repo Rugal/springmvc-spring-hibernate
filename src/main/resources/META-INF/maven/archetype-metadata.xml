@@ -2,27 +2,11 @@
 <archetype-descriptor name="app-server">
     <fileSets>
         <fileSet filtered="true" encoding="UTF-8">
-            <directory>src/main/java</directory>
+            <directory>src</directory>
             <includes>
                 <include>**/*.java</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory>src/main/resources</directory>
-            <includes>
                 <include>**/*.xml</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory>src/main/resources</directory>
-            <includes>
                 <include>**/*.properties</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory>src/test/java</directory>
-            <includes>
-                <include>**/*.java</include>
             </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
@@ -30,6 +14,8 @@
             <includes>
                 <include>lombok.config</include>
                 <include>.gitignore</include>
+                <include>Procfile</include>
+                <include>static/db/postgresql.sql</include>
             </includes>
         </fileSet>
     </fileSets>

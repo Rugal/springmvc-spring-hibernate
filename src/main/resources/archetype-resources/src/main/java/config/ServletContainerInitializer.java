@@ -9,7 +9,7 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
- * This is servlet initializer class replace for web.xml file.
+ * This is Servlet initializer class replace for web.xml file.
  *
  * @author Rugal Bernstein
  * @since 0.6
@@ -25,6 +25,7 @@ public class ServletContainerInitializer extends AbstractAnnotationConfigDispatc
         servletContext.addFilter("hiddenHttpMethodFilter", hiddenHttpMethodFilter()).addMappingForUrlPatterns(null, true, "/*");
         super.onStartup(servletContext);
     }
+
 
     /**
      * Common configuration.
@@ -83,7 +84,8 @@ public class ServletContainerInitializer extends AbstractAnnotationConfigDispatc
     private Filter characterEncodingFilter()
     {
         CharacterEncodingFilter cef = new CharacterEncodingFilter();
-        cef.setEncoding("UTF-8");
+        cef.setEncoding(SystemDefaultProperties.ENCODING);
+        cef.setForceEncoding(true);
         return cef;
     }
 
@@ -91,5 +93,4 @@ public class ServletContainerInitializer extends AbstractAnnotationConfigDispatc
     {
         return new HiddenHttpMethodFilter();
     }
-
 }

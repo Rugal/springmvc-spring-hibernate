@@ -8,8 +8,7 @@ package config;
  */
 public interface SystemDefaultProperties
 {
+    String ENCODING = "UTF-8";
 
-    String ID = "id";
-
-    String CREDENTIAL = "credential";
+    String SCHEMA = "test";
 }
